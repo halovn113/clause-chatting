@@ -6,6 +6,7 @@ pub struct ChatMessage {
     pub content: String,
 }
 
+#[allow(dead_code)]
 impl ChatMessage {
     pub fn system(content: &str) -> Self {
         Self { role: "system".into(), content: content.into() }
@@ -69,6 +70,7 @@ pub struct LlmResponse {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct StreamChunk {
     pub token: String,
     pub done: bool,

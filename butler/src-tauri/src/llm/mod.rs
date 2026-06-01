@@ -13,6 +13,7 @@ pub trait ILlmProvider: Send + Sync {
         config: &LlmConfig,
     ) -> Result<LlmResponse>;
 
+    #[allow(dead_code)]
     fn stream(
         &self,
         messages: &[ChatMessage],
@@ -21,6 +22,7 @@ pub trait ILlmProvider: Send + Sync {
 
     fn health(&self) -> Result<bool>;
 
+    #[allow(dead_code)]
     fn embedding(&self, _text: &str) -> Result<Vec<f32>> {
         Ok(vec![])
     }

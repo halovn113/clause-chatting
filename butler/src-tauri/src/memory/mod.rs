@@ -5,6 +5,7 @@ use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct MemoryEntry {
     pub key: String,
     pub value: String,

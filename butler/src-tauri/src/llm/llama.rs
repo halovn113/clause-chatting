@@ -9,8 +9,6 @@ use llama_cpp_2::model::params::LlamaModelParams;
 use llama_cpp_2::model::LlamaModel;
 use llama_cpp_2::context::LlamaContext;
 use llama_cpp_2::model::AddBos;
-#[allow(deprecated)]
-use llama_cpp_2::model::Special;
 use llama_cpp_2::token::data_array::LlamaTokenDataArray;
 use parking_lot::RwLock;
 use tokio::sync::mpsc;
@@ -121,6 +119,7 @@ impl ILlmProvider for LlamaCppProvider {
         let eos_token = model.token_eos();
         let max_chars = (config.max_tokens * 4) as usize;
         let mut n_cur = batch.n_tokens();
+        let mut decoder = encoding_rs::UTF_8.new_decoder();
 
         while n_cur <= config.context_size as i32 {
             let candidates = context.candidates_ith(batch.n_tokens() - 1);
@@ -132,7 +131,13 @@ impl ILlmProvider for LlamaCppProvider {
                 break;
             }
 
-            if let Ok(s) = model.token_to_str(new_token_id, Special::Tokenize) {
+            let piece = model.token_to_piece(
+                new_token_id,
+                &mut decoder,
+                false,
+                None::<NonZero<u16>>,
+            );
+            if let Ok(s) = piece {
                 output.push_str(&s);
             }
 

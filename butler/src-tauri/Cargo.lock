@@ -274,6 +274,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "dirs-next",
+ "encoding_rs",
  "llama-cpp-2",
  "log",
  "parking_lot",
