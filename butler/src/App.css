@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100vh;
+  overflow: hidden;
+  background: #0f0f14;
+  color: #e4e4e7;
+}
